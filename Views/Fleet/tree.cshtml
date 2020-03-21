@@ -1,0 +1,66 @@
+﻿
+@{
+    @model FleetTreeModel;
+    ViewData["Title"] = "Fleet Tree";
+}
+
+<h1>Fleet Tree</h1>
+<hr style="border-width:2px;border-color:black" />
+
+<table class="table table-condensed">
+
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Country Name</th>
+            <th>Area Code</th>
+            <th>Fleet Id</th>
+            <th>Commission Date</th>
+            <th>Kind</th>
+            <th style="text-align: right;">Landed Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var country in Model.Countries)
+        {
+            <tr isexpanded="0" context="fleets" parentkey="" key="country_@country.CountryCode">
+                <td><a href="#" onclick="toggleNode('country_@country.CountryCode', 'fleets'); return false;"><i handle class="fas fa-caret-right"></i></a></td>
+                <td>@country.CountryName</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            foreach (var area in country.CountryAreas)
+            {
+                <tr  isexpanded="0" context="fleets" parentkey="country_@country.CountryCode" key="area_@area.AreaCode" style="display:none">
+                    <td><a href="#" onclick="toggleNode('area_@area.AreaCode', 'fleets'); return false;"><i handle class="fas fa-caret-right"></i></a></td>
+                    <td>&nbsp;</td>
+                    <td>@area.AreaCode</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+
+                foreach (var fleet in area.AreaFleets)
+                {
+                    <tr  isexpanded="0" parentkey="area_@area.AreaCode" key="area_@fleet.FleetId" context="fleets" style="display:none">
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>@fleet.FleetId</td>
+                        <td>@fleet.FleetCommissionDate.ToShortDateString()</td>
+                        <td>@fleet.FleetKindCode</td>
+                        <td style="text-align: right;">@fleet.FleetLandedCost</td>
+                    </tr>
+
+                }
+            }
+        }
+
+    </tbody>
+</table>
+

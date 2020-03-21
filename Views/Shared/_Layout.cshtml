@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - C.A.T Insurance</title>
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/node_modules/@@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/css/site.css"> 
+    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">C.A.T Insurance</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="fleet" asp-action="index">Fleets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="fleet" asp-action="tree">Fleet Tree</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="employeerate" asp-action="new">New Employee Rate</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()           
+        </main>        
+    </div>    
+ 
+    <script src="~/node_modules/moment/min/moment.min.js"></script>
+    <script src="~/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+     <script src="~/js/progress-indicator.js"></script>
+    <script src="~/js/basic-utilities.js"></script>    
+    <script src="~/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/leading-trailing-spaces-validator.js"></script>
+    <script src="~/js/daterange-validator.js"></script>
+    <script src="~/js/tree.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

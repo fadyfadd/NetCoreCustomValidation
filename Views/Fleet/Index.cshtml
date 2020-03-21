@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Fleets";
+    @model PaginatedList<Fleet>;
+}
+
+<h1>Fleets</h1>
+<hr style="border-width:2px;border-color:black" />
+<form asp-action="Index" method="get">
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <div class="text-left">
+                    Page @(Model.PageIndex + 1) / @Model.TotalPages - @((Model.PageIndex + 1) * Model.PageSize) / @Model.RowCount Record(s)
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-right">
+                    <input type="text" value="@(ViewData["SearchString"] ?? "")" name="SearchString"  />
+                    <input type="submit" style="padding-right:2px"  value="Search" class="btn btn-link" />|<a style="padding-left:2px" class="btn btn-link" asp-action="Index">Full List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<a href="#">Create New</a>
+<table id="tbl" class="table , table-condensed">
+    <thead>
+        <tr>
+            <th><a asp-action="index" asp-route-sortorder="@ViewData["FleetIdSortParam"]">Id</a></th>
+            <th><a asp-action="index" asp-route-sortorder="@ViewData["FleetAreaSortParam"]">Area</a></th>
+            <th><a asp-action="index" asp-route-sortorder="@ViewData["FleetSerialSortParam"]">Serial</a></th>
+            <th><a asp-action="index" asp-route-sortorder="@ViewData["FleetCommDateSortParam"]">Commission Date</a></th>
+            <th><a asp-action="index" asp-route-sortorder="@ViewData["FleetKindSortParam"]">Kind</a></th>
+            <th style="text-align:right"><a asp-action="index" asp-route-sortorder="@ViewData["FleetLandedCostSortParam"]">Landed Cost</a></th>
+            <th style="text-align:center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var fleet in Model)
+        {
+        <tr>
+            <td id="id_@fleet.FleetId">@fleet.FleetId</td>
+            <td>@fleet.FleetArea.AreaCode</td>
+            <td>@fleet.FleetSerial</td>
+            <td>@fleet.FleetCommissionDate.ToShortDateString()</td>
+            <td>@fleet.FleetKindCode</td>
+            <td style="text-align:right">@fleet.FleetLandedCost</td>
+            <td style="text-align:center"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+
+        </tr>
+
+        }
+    </tbody>
+
+</table>
+
+<div class="row">
+    <div class="col-6">
+        <div class="btn-group">
+
+
+
+            @if (Model.HasPreviousPage)
+            {
+                <a asp-action="Index" asp-route-searchstring="@(ViewData["SearchString"] ?? "")" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary">Previous</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-searchstring="@(ViewData["SearchString"] ?? "")" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary disabled">Previous</a>
+            }
+
+            @if (Model.HasNextPage)
+            {
+                <a asp-action="Index" asp-route-searchstring="@(ViewData["SearchString"] ?? "")" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-success">Next</a>
+
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-searchstring="@(ViewData["SearchString"] ?? "")" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-success disabled">Next</a>
+            }
+
+
+
+        </div>
+
+    </div>
+    <div class="col-6">
+        <div class="text-right">
+            <form asp-action="Index" id="pagingForm" method="get">
+
+                <input type="hidden" name="searchString" value="@(ViewData["SearchString"] ?? "")" />
+                <input type="hidden" name="sortOrder" value="@(@ViewData["CurrentSort"] ?? "")" />
+
+                <select name="pageNumber" onchange="$('#pagingForm')[0].submit();" style="height:35px;width:100px">
+
+                    @for (int i = 0; i <= Model.TotalPages - 1; i++)
+                    {
+                        if (@i == Model.PageIndex)
+                        {
+                            <option selected value="@i">Page @(i + 1)</option>
+                        }
+
+                        else
+                        {
+                            <option value="@i">Page @(i + 1)</option>
+                        }
+
+                    }
+                </select>
+            </form>
+        </div>
+    </div>
+</div>
+
+
