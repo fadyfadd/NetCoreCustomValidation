@@ -20,6 +20,7 @@ namespace NetCoreCustomValidation.Controllers
         private String CatInsuranceConnectionString = null;
         public FleetController(IOptions<AppSettings> settings)
         {
+            
             CatInsuranceConnectionString = settings.Value.CatInsuranceConnectionString;
         }
 

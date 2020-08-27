@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NetCoreCustomValidation.DataContext
 {
     public class CountryConfiguration : IEntityTypeConfiguration<Country>
-    {
+    {    
         public void Configure(EntityTypeBuilder<Country> builder)
         {
             builder.ToTable("CT_COUNTRY");
